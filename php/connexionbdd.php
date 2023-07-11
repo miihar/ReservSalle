@@ -43,7 +43,53 @@ class MaConnexion{
         }
     }
 
+    public function insertionClient($nom,$prenom,$mail){
+        try {
+            $requete = " INSERT INTO client(Nom, Prenom, Mail) 
+                VALUES (:Nom, :Prenom, :Mail)" ;
+            $requete_preparee = $this->connexionPDO->prepare($requete);
+
+            $requete_preparee->bindParam(':Nom',$nom,PDO::PARAM_STR,30);
+            $requete_preparee->bindParam(':Prenom',$prenom,PDO::PARAM_STR,50);
+            $requete_preparee->bindParam(':Mail',$mail,PDO::PARAM_STR);
+
+            $requete_preparee->execute();
+            echo ("insertion reussi");
+            return "insertion reussi";
+
+        } catch(PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+
+    // Fonction de mis à jour du statut de la salle dans la table Salle 
+    public function maj_Statut($nomSalle){
+        try {
+
+            $requete = "UPDATE salle SET Statut_Salle = 'RES'
+                WHERE Nom_salle = ?";
+            $requete_preparee = $this->connexionPDO->prepare($requete);
+
+            $requete_preparee->bindvalue(1,$nomSalle,PDO::PARAM_STR);
+
+            $requete_preparee->execute();
+
+            echo("mise a jour reussi");
+            return "mise a jour reussi";
+        
+        } catch(PDOException $e) {
+            return $e->getMessage();
+        }
+    }
 }
+
+// $test = new MaConnexion("reservsalle", "", "root", "localhost");
+
+// $inser = $test->insertionClient("doe","john","mail@mail.co");
+// var_dump($inser);
+// $sallee = $test->maj_Statut("Salle Madrid");
+// var_dump($sallee);
+
 
 
 ?>
