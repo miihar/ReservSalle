@@ -25,15 +25,14 @@ class MaConnexion{
     }
 
     //fonction pour selectionner des elements dans la bdd
-    public function selectUtilisateur($identifiant, $password)
-    {
+    public function selectSalle($table){
         try {
-            $requete = "SELECT * from user where identifiant = :identifiant and mot_de_passe = :mdp";
+            $requete = "SELECT * from $table /*where identifiant = :identifiant and mot_de_passe = :mdp*/";
             $requete_preparee = $this->connexionPDO->prepare($requete);
-
-            $requete_preparee->bindParam(":identifiant", $identifiant,PDO::PARAM_STR);
-            $requete_preparee->bindParam(":mdp", $password,PDO::PARAM_STR);
-
+            /*  
+                $requete_preparee->bindParam(":identifiant", $identifiant,PDO::PARAM_STR);
+                $requete_preparee->bindParam(":mdp", $password,PDO::PARAM_STR);
+            */
             $resultat = $requete_preparee->execute();
             $resultat = $requete_preparee->fetchAll(PDO::FETCH_ASSOC);
 
@@ -45,4 +44,6 @@ class MaConnexion{
     }
 
 }
+
+
 ?>
