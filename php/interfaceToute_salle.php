@@ -10,10 +10,10 @@
 </head>
 
 <body>
-    <h1>Bienvenu sur ce magifique site de Reservation de salle</h1>
+    <h1>Bienvenue sur ce magifique site de Reservation de salle</h1>
     <main>
         <section class="card shadow">
-            <h2 class="card__title">titre</h2>
+            <h2 class="card-header">Voici toute les salle que nous disposons</h2>
             <table class="table table-dark table-hover">
                 <thead>
                     <tr>
@@ -35,8 +35,6 @@
                             <td>' . $donee['Prix'] . '</td>
                             <td>' . $donee['Type'] . '</td>
                             <td>' . $donee['Statut_Salle'] . '</td>
-                            <td><button type="button" class="btn btn-outline-secondary">modif</button>
-                            <button type="button" class="btn btn-outline-success">suppr</button></td>
                         <tr>';
                     }
                     ?>
@@ -47,9 +45,13 @@
         <section>
             <?php
                 include "modal.php";
+                include "deleteModal.php";
             ?>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Launch demo modal
+                ajouter une reservation
+            </button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                suppr une reservation
             </button>
         </section>
     </main>

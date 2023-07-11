@@ -66,8 +66,9 @@ class MaConnexion{
     public function maj_Statut($nomSalle){
         try {
 
-            $requete = "UPDATE salle SET Statut_Salle = 'RES'
+            $requete = "UPDATE salle SET Statut_Salle = 'RES' 
                 WHERE Nom_salle = ?";
+
             $requete_preparee = $this->connexionPDO->prepare($requete);
 
             $requete_preparee->bindvalue(1,$nomSalle,PDO::PARAM_STR);
@@ -81,15 +82,31 @@ class MaConnexion{
             return $e->getMessage();
         }
     }
+
+    public function deleteReserv($nomSalle){
+        try{
+            $requete = "UPDATE salle SET Statut_Salle = 'LIB'
+            WHERE Nom_salle = ?";
+            $requete_preparee = $this->connexionPDO->prepare($requete);
+
+            $requete_preparee->bindvalue(1,$nomSalle,PDO::PARAM_STR);
+            $requete_preparee->execute();
+            echo 'modification reussie';
+            return $requete_preparee;
+
+        } catch (PDOException $e) {
+            echo 'Erreur : ' . $e->getMessage();
+        }
+    }
 }
 
-// $test = new MaConnexion("reservsalle", "", "root", "localhost");
+/*
+$test = new MaConnexion("reservsalle", "", "root", "localhost");
 
-// $inser = $test->insertionClient("doe","john","mail@mail.co");
-// var_dump($inser);
-// $sallee = $test->maj_Statut("Salle Madrid");
-// var_dump($sallee);
-
-
+$inser = $test->insertionClient("doe","john","mail@mail.co");
+var_dump($inser);
+$sallee = $test->maj_Statut("Salle Madrid");
+var_dump($sallee);
+*/
 
 ?>
